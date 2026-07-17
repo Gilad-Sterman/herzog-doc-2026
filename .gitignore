@@ -1,0 +1,26 @@
+# ─── Environment ─────────────────────────────────────────────────────────────
+.env
+.env.*
+!.env.example
+
+# ─── Data (raw DB exports - not for repo) ────────────────────────────────────
+data/
+
+# ─── Dependencies ────────────────────────────────────────────────────────────
+node_modules/
+client/node_modules/
+server/node_modules/
+
+# ─── Build output ────────────────────────────────────────────────────────────
+client/dist/
+server/public/
+
+# ─── Logs ────────────────────────────────────────────────────────────────────
+*.log
+logs/
+
+# ─── OS / Editor ─────────────────────────────────────────────────────────────
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/

@@ -1,0 +1,82 @@
+@use 'vars' as *;
+
+// ─── Responsive ──────────────────────────────────────────────────────────────
+@mixin mobile {
+    @media (max-width: #{$bp-mobile}) { @content; }
+}
+
+@mixin tablet {
+    @media (max-width: #{$bp-tablet}) { @content; }
+}
+
+@mixin desktop-large {
+    @media (min-width: #{$bp-desktop}) { @content; }
+}
+
+// ─── Layout helpers ──────────────────────────────────────────────────────────
+@mixin flex($dir: row, $justify: flex-start, $align: stretch) {
+    display: flex;
+    flex-direction: $dir;
+    justify-content: $justify;
+    align-items: $align;
+}
+
+@mixin flex-center {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+@mixin full-page {
+    min-height: 100vh;
+    width: 100%;
+}
+
+// ─── Typography ──────────────────────────────────────────────────────────────
+@mixin heading($size: 2rem, $color: $clr-purple-mid) {
+    font-family: $font-bold;
+    font-size: $size;
+    color: $color;
+    margin: 0 0 0.5em;
+    line-height: 1.2;
+}
+
+@mixin body-text($size: 1.25rem) {
+    font-family: $font-primary;
+    font-size: $size;
+    line-height: 1.8;
+    color: $clr-text-dark;
+}
+
+@mixin hebrew-text($size: 1.25rem) {
+    font-family: $font-hebrew;
+    font-size: $size;
+    direction: rtl;
+    text-align: right;
+    line-height: 1.9;
+}
+
+// ─── UI elements ─────────────────────────────────────────────────────────────
+@mixin card($padding: $space-lg) {
+    background: $clr-white;
+    border-radius: 8px;
+    border: 1px solid $clr-border;
+    padding: $padding;
+}
+
+@mixin btn-reset {
+    background: none;
+    border: none;
+    padding: 0;
+    margin: 0;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+@mixin scrollbar($thumb: $clr-teal, $track: transparent) {
+    &::-webkit-scrollbar { width: 6px; }
+    &::-webkit-scrollbar-thumb { background: $thumb; border-radius: 3px; }
+    &::-webkit-scrollbar-track { background: $track; }
+}

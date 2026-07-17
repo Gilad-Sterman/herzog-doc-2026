@@ -1,0 +1,150 @@
+@use '../base/vars' as *;
+@use '../base/mixins' as *;
+
+.sidebar-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.4);
+    z-index: 49;
+}
+
+.sidebar {
+    position: fixed;
+    top: $header-height;
+    left: 0;
+    bottom: 0;
+    width: $sidebar-width;
+    background: $clr-purple-deep;
+    color: $clr-white;
+    transform: translateX(-100%);
+    transition: transform $transition-slow;
+    z-index: 50;
+    overflow-y: auto;
+    @include scrollbar(rgba($clr-white, 0.3));
+
+    &.open {
+        transform: translateX(0);
+    }
+
+    [dir="rtl"] & {
+        left: auto;
+        right: 0;
+        transform: translateX(100%);
+
+        &.open { transform: translateX(0); }
+    }
+
+    @include tablet {
+        width: 85vw;
+        max-width: 320px;
+    }
+
+    .sidebar-header {
+        @include flex(row, space-between, center);
+        padding: $space-lg;
+        border-bottom: 1px solid rgba($clr-white, 0.15);
+
+        h3 {
+            color: $clr-white;
+            font-size: 1rem;
+            margin: 0;
+        }
+
+        .btn-close {
+            @include btn-reset;
+            color: $clr-white;
+            opacity: 0.7;
+            font-size: 1.4rem;
+            transition: opacity $transition-fast;
+
+            &:hover { opacity: 1; }
+        }
+    }
+
+    .chapter-list {
+        padding: $space-sm 0;
+    }
+
+    .chapter-item {
+        border-bottom: 1px solid rgba($clr-white, 0.07);
+
+        &.active > .chapter-row .chapter-title-btn .ch-num {
+            color: $clr-blue-light;
+        }
+    }
+
+    .chapter-row {
+        @include flex(row, space-between, center);
+    }
+
+    .chapter-title-btn {
+        @include btn-reset;
+        flex: 1;
+        text-align: left;
+        padding: $space-sm $space-lg;
+        @include flex(column, flex-start, flex-start);
+        gap: 2px;
+        transition: background $transition-fast;
+
+        &:hover { background: rgba($clr-white, 0.07); }
+
+        .ch-num {
+            font-size: 0.7rem;
+            color: rgba($clr-white, 0.5);
+            text-transform: uppercase;
+            letter-spacing: 0.06em;
+        }
+
+        .ch-title {
+            font-size: 0.85rem;
+            color: rgba($clr-white, 0.9);
+            line-height: 1.3;
+        }
+    }
+
+    .expand-btn {
+        @include btn-reset;
+        color: rgba($clr-white, 0.5);
+        padding: $space-sm;
+        font-size: 0.8rem;
+        transition: color $transition-fast;
+
+        &:hover { color: $clr-white; }
+    }
+
+    .sub-list {
+        background: rgba(0, 0, 0, 0.15);
+        padding: $space-xs 0;
+    }
+
+    .sub-btn {
+        @include btn-reset;
+        width: 100%;
+        text-align: left;
+        @include flex(row, flex-start, baseline);
+        gap: $space-sm;
+        padding: $space-xs $space-lg $space-xs calc(#{$space-lg} + #{$space-md});
+        [dir="rtl"] & { text-align: right; padding: $space-xs calc(#{$space-lg} + #{$space-md}) $space-xs $space-lg; }
+        transition: background $transition-fast;
+
+        &:hover { background: rgba($clr-white, 0.07); }
+
+        &.active {
+            background: rgba($clr-teal, 0.3);
+            .sub-num, .sub-title { color: $clr-blue-light; }
+        }
+
+        .sub-num {
+            font-size: 0.7rem;
+            color: rgba($clr-white, 0.45);
+            min-width: 32px;
+            flex-shrink: 0;
+        }
+
+        .sub-title {
+            font-size: 0.8rem;
+            color: rgba($clr-white, 0.75);
+            line-height: 1.3;
+        }
+    }
+}

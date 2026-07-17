@@ -1,0 +1,136 @@
+@use '../base/vars' as *;
+@use '../base/mixins' as *;
+
+.toc {
+    max-width: $content-max-width;
+    margin: 0 auto;
+    padding: $space-2xl 0;
+
+    @include mobile { padding: $space-xl 0; }
+}
+
+.toc-header {
+    margin-bottom: $space-2xl;
+    padding-bottom: $space-xl;
+    border-bottom: 2px solid $clr-border;
+
+    h2 {
+        font-size: 2.2rem;
+        color: $clr-purple-deep;
+        margin-bottom: $space-md;
+    }
+
+    p {
+        font-size: 1rem;
+        color: $clr-text-dark;
+        opacity: 0.7;
+        max-width: 560px;
+        line-height: 1.6;
+    }
+}
+
+.toc-section {
+    margin-bottom: $space-2xl;
+}
+
+.toc-section-label {
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: $clr-teal;
+    font-family: $font-bold;
+    margin-bottom: $space-lg;
+    padding-bottom: $space-xs;
+    border-bottom: 1px solid $clr-border;
+}
+
+.toc-list {
+    padding: 0;
+    list-style: none;
+}
+
+.toc-chapter {
+    margin-bottom: $space-sm;
+}
+
+.toc-chapter-btn {
+    @include btn-reset;
+    width: 100%;
+    text-align: left;
+    @include flex(row, flex-start, baseline);
+    gap: $space-md;
+    padding: $space-md $space-lg;
+    border-radius: 8px;
+    transition: background $transition-fast;
+
+    &:hover {
+        background: rgba($clr-teal, 0.06);
+
+        .toc-title { color: $clr-teal; }
+    }
+
+    .toc-num {
+        font-size: 0.8rem;
+        font-family: $font-bold;
+        color: $clr-teal;
+        min-width: 80px;
+        flex-shrink: 0;
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
+    }
+
+    .toc-title {
+        font-size: 1rem;
+        color: $clr-text-dark;
+        transition: color $transition-fast;
+        text-align: left;
+        line-height: 1.4;
+    }
+
+    .toc-sub-count {
+        font-size: 0.75rem;
+        color: $clr-purple-mid;
+        opacity: 0.6;
+        margin-left: auto;
+        flex-shrink: 0;
+    }
+}
+
+.toc-sub-list {
+    padding: 0 0 $space-sm $space-xl;
+    list-style: none;
+    border-left: 2px solid rgba($clr-teal, 0.2);
+    margin-left: $space-lg;
+}
+
+.toc-sub-btn {
+    @include btn-reset;
+    width: 100%;
+    text-align: left;
+    @include flex(row, flex-start, baseline);
+    gap: $space-md;
+    padding: $space-xs $space-md;
+    border-radius: 4px;
+    transition: background $transition-fast;
+
+    &:hover {
+        background: rgba($clr-teal, 0.05);
+        .toc-title { color: $clr-teal; }
+    }
+
+    .toc-num {
+        font-size: 0.75rem;
+        font-family: $font-bold;
+        color: $clr-purple-mid;
+        min-width: 48px;
+        flex-shrink: 0;
+    }
+
+    .toc-title {
+        font-size: 0.9rem;
+        color: $clr-text-dark;
+        opacity: 0.8;
+        transition: color $transition-fast;
+        line-height: 1.4;
+    }
+}

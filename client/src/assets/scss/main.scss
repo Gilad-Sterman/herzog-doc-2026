@@ -1,0 +1,24 @@
+// ─── Base ────────────────────────────────────────────────────────────────────
+@use 'base/vars' as *;
+@use 'base/mixins' as *;
+@use 'base/reset';
+
+// ─── Components ──────────────────────────────────────────────────────────────
+@use 'components/header';
+@use 'components/sidebar';
+@use 'components/reader';
+@use 'components/toc';
+
+// ─── Pages ───────────────────────────────────────────────────────────────────
+@use 'pages/home';
+@use 'pages/view-doc';
+@use 'pages/search';
+
+// ─── Global utilities ────────────────────────────────────────────────────────
+.page-wrapper {
+    padding-top: $header-height;
+    min-height: 100vh;
+}
+
+.rtl { direction: rtl; text-align: right; }
+.ltr { direction: ltr; text-align: left; }

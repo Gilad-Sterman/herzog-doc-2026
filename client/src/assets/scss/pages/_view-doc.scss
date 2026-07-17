@@ -1,0 +1,46 @@
+@use '../base/vars' as *;
+@use '../base/mixins' as *;
+
+.view-doc-page {
+    padding-top: $header-height;
+    @include flex(row, flex-start, stretch);
+    min-height: 100vh;
+
+    .sidebar-toggle {
+        position: fixed;
+        left: $space-md;
+        top: calc(#{$header-height} + #{$space-md});
+        z-index: 60;
+        @include btn-reset;
+        background: $clr-purple-deep;
+        color: $clr-white;
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+        transition: background $transition-fast;
+
+        &:hover { background: $clr-purple-mid; }
+
+        [dir="rtl"] & { left: auto; right: $space-md; }
+    }
+
+    .doc-content {
+        flex: 1;
+        max-width: $content-max-width;
+        margin: 0 auto;
+        padding: $space-2xl $space-xl;
+
+        @include mobile { padding: $space-xl $space-md; }
+        @include desktop-large { max-width: $content-wide; }
+    }
+
+    .loading-state,
+    .empty-state {
+        @include flex-center;
+        min-height: 60vh;
+        color: $clr-purple-mid;
+        font-size: 1.2rem;
+        opacity: 0.7;
+    }
+}

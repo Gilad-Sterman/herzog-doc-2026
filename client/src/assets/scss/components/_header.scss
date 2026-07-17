@@ -1,0 +1,73 @@
+@use '../base/vars' as *;
+@use '../base/mixins' as *;
+
+.app-header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: $header-height;
+    z-index: 100;
+    background: $gradient-header;
+    color: $clr-white;
+    @include flex(row, space-between, center);
+    padding: 0 $space-xl;
+
+    @include mobile {
+        padding: 0 $space-md;
+    }
+
+    .header-logo {
+        @include flex(row, flex-start, center);
+        gap: $space-sm;
+        font-family: $font-bold;
+        font-size: 1.1rem;
+        letter-spacing: 0.04em;
+
+        img {
+            height: 40px;
+            width: 40px;
+            border-radius: 50%;
+            object-fit: cover;
+        }
+    }
+
+    nav {
+        @include flex(row, flex-end, center);
+        gap: $space-lg;
+
+        a {
+            color: $clr-white;
+            font-size: 1rem;
+            opacity: 0.85;
+            transition: opacity $transition-fast;
+
+            &:hover,
+            &.active {
+                opacity: 1;
+                text-decoration: underline;
+                text-underline-offset: 4px;
+            }
+        }
+    }
+
+    .lang-toggle {
+        @include flex(row, center, center);
+        gap: $space-xs;
+
+        button {
+            color: $clr-white;
+            font-size: 0.9rem;
+            padding: $space-xs $space-sm;
+            border-radius: 4px;
+            opacity: 0.7;
+            transition: all $transition-fast;
+
+            &.active {
+                opacity: 1;
+                background: rgba($clr-white, 0.2);
+                font-family: $font-bold;
+            }
+        }
+    }
+}

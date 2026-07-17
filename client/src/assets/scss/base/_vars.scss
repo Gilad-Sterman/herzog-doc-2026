@@ -1,0 +1,46 @@
+// ─── Color Palette ───────────────────────────────────────────────────────────
+$clr-purple-deep:    #4b2647;
+$clr-purple-mid:     #874680;
+$clr-purple-light:   #e9c1e5;
+$clr-teal:           #376b80;
+$clr-blue-light:     #a8d7f8;
+$clr-text-dark:      #212121;
+$clr-text-light:     #f5f5f5;
+$clr-white:          #ffffff;
+$clr-bg:             #faf8f5;
+$clr-bg-alt:         #f0ece6;
+$clr-border:         #ddd5cc;
+$clr-accent:         #c468ba;
+
+// Header gradient
+$gradient-header: linear-gradient(to right, $clr-purple-deep, $clr-teal);
+
+// ─── Typography ──────────────────────────────────────────────────────────────
+$font-primary:   'Days-Regular', 'Lora', Georgia, serif;
+$font-bold:      'Days-Bold', 'Lora', Georgia, serif;
+$font-hebrew:    'Alef', 'David', sans-serif;
+
+// ─── Sizing ──────────────────────────────────────────────────────────────────
+$header-height:      72px;
+$sidebar-width:      300px;
+$sidebar-collapsed:  0px;
+$content-max-width:  820px;
+$content-wide:       1100px;
+
+// ─── Breakpoints ─────────────────────────────────────────────────────────────
+$bp-mobile:   640px;
+$bp-tablet:   1024px;
+$bp-desktop:  1440px;
+
+// ─── Spacing ─────────────────────────────────────────────────────────────────
+$space-xs:   4px;
+$space-sm:   8px;
+$space-md:   16px;
+$space-lg:   24px;
+$space-xl:   40px;
+$space-2xl:  64px;
+
+// ─── Transitions ─────────────────────────────────────────────────────────────
+$transition-fast:   0.15s ease;
+$transition-base:   0.25s ease;
+$transition-slow:   0.4s ease;

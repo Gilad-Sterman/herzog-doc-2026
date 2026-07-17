@@ -1,0 +1,85 @@
+@use 'vars' as *;
+
+@import url('https://fonts.googleapis.com/css2?family=Alef&family=Lora:ital,wght@0,400;0,600;1,400&family=Jost:wght@300;400;500&display=swap');
+
+@font-face {
+    font-family: 'Days-Regular';
+    src: url('/fonts/Days/Days-Regular.ttf') format('truetype');
+    font-display: swap;
+}
+@font-face {
+    font-family: 'Days-Bold';
+    src: url('/fonts/Days/Days-Bold.ttf') format('truetype');
+    font-display: swap;
+}
+@font-face {
+    font-family: 'Days-Nights';
+    src: url('/fonts/Days/Days-Nights.ttf') format('truetype');
+    font-display: swap;
+}
+@font-face {
+    font-family: 'Days-NightsBold';
+    src: url('/fonts/Days/Days-NightsBold.ttf') format('truetype');
+    font-display: swap;
+}
+
+*, *::before, *::after {
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+    font-size: 16px;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    font-family: $font-primary;
+    color: $clr-text-dark;
+    background-color: $clr-bg;
+    overflow-x: hidden;
+    -webkit-font-smoothing: antialiased;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    margin: 0 0 0.5em;
+    font-family: $font-bold;
+    color: $clr-purple-mid;
+    line-height: 1.2;
+}
+
+p { margin: 0 0 1em; }
+
+a {
+    text-decoration: none;
+    color: inherit;
+}
+
+button {
+    cursor: pointer;
+    border: none;
+    background: none;
+    font-family: inherit;
+}
+
+img, video, embed {
+    max-width: 100%;
+    display: block;
+}
+
+ul, ol {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+input, textarea {
+    font-family: inherit;
+    outline: none;
+    border: none;
+}
+
+::-webkit-scrollbar { width: 7px; height: 7px; }
+::-webkit-scrollbar-thumb { background: $clr-teal; border-radius: 4px; }
+::-webkit-scrollbar-track { background: transparent; }
