@@ -3,5 +3,5 @@ dotenv.config()
 
 export default {
     dbURL: process.env.DB_URL,
-    dbName: 'content',
+    dbName: process.env.DB_NAME || 'content',
 }
