@@ -6,6 +6,9 @@
 # ─── Data (raw DB exports - not for repo) ────────────────────────────────────
 data/
 
+# ─── Scripts (local tooling - not for deployment) ────────────────────────────
+server/scripts/
+
 # ─── Dependencies ────────────────────────────────────────────────────────────
 node_modules/
 client/node_modules/

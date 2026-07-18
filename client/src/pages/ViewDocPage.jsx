@@ -31,6 +31,25 @@ export default function ViewDocPage() {
         }
     }, [chapterNum, subNum, chapters, navigate])
 
+    // When lang changes and new chapters are loaded, reroute if subNum format
+    // doesn't exist in the new language (e.g. '1A' in English vs '1א' in Hebrew)
+    useEffect(() => {
+        if (!chapterNum || !subNum || chapters.length === 0 || loadedLang !== lang) return
+        const sorted = sortChapters(chapters)
+        const ch = sorted.find((c) => c.num === chapterNum)
+        if (!ch?.subChapters?.length) return
+        if (ch.subChapters.some((s) => s.num === subNum)) return
+
+        const HEB_LETTERS = ['א','ב','ג','ד','ה','ו','ז','ח','ט','י','יא','יב','יג','יד']
+        const suffix = subNum.slice(chapterNum.length)
+        const latinIdx = suffix.length === 1 && suffix >= 'A' && suffix <= 'N'
+            ? suffix.charCodeAt(0) - 65
+            : HEB_LETTERS.indexOf(suffix)
+        const idx = Math.max(0, latinIdx)
+        const target = ch.subChapters[Math.min(idx, ch.subChapters.length - 1)]
+        if (target) navigate(`/view/${chapterNum}/${target.num}`, { replace: true })
+    }, [chapters, loadedLang, lang, chapterNum, subNum, navigate])
+
     const sorted = sortChapters(chapters)
     const chapter = chapterNum ? sorted.find((c) => c.num === chapterNum) : null
     const subChapter = chapter && subNum ? chapter.subChapters?.find((s) => s.num === subNum) : null
