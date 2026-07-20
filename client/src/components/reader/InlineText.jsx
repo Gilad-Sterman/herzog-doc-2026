@@ -1,7 +1,7 @@
 function parseInline(text) {
     if (!text) return []
     const segments = []
-    const pattern = /\*([^*]+)\*|\[\^(\d+)\]/g
+    const pattern = /\*\*([^*]+)\*\*|\*([^*]+)\*|\[\^(\d+)\]/g
     let lastIndex = 0
     let match
 
@@ -10,9 +10,11 @@ function parseInline(text) {
             segments.push({ type: 'text', content: text.slice(lastIndex, match.index) })
         }
         if (match[1] !== undefined) {
-            segments.push({ type: 'italic', content: match[1] })
+            segments.push({ type: 'bold', content: match[1] })
         } else if (match[2] !== undefined) {
-            segments.push({ type: 'footnote', num: parseInt(match[2], 10) })
+            segments.push({ type: 'italic', content: match[2] })
+        } else if (match[3] !== undefined) {
+            segments.push({ type: 'footnote', num: parseInt(match[3], 10) })
         }
         lastIndex = match.index + match[0].length
     }
@@ -36,6 +38,7 @@ export default function InlineText({ text, onFootnoteClick }) {
                     <span key={pi} className="inline-para">
                         {pi > 0 && <><br /><br /></>}
                         {segments.map((seg, si) => {
+                            if (seg.type === 'bold') return <strong key={si}>{seg.content}</strong>
                             if (seg.type === 'italic') return <em key={si}>{seg.content}</em>
                             if (seg.type === 'footnote') return (
                                 <sup

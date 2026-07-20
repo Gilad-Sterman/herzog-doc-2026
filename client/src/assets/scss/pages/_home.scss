@@ -2,7 +2,8 @@
 @use '../base/mixins' as *;
 
 .home-page {
-    padding-top: $header-height;
+    padding-top: calc(#{$header-height} + #{$header-top} + #{$space-sm});
+    background-color: $clr-purple-mid;
 
     .hero {
         background: $gradient-header;
@@ -41,6 +42,10 @@
         transition: background $transition-fast;
 
         &:hover { background: rgba($clr-white, 0.28); }
+    }
+
+    .home-content {
+        background-color: $clr-white;
     }
 
     .content-section {
@@ -82,7 +87,7 @@
     .home-portrait {
         max-width: $content-max-width;
         margin: 0 auto;
-        padding: 0 $space-xl;
+        padding: $space-2xl $space-xl 0;
         @include flex(row, center, center);
 
         @include mobile { padding: 0 $space-md; }
@@ -115,15 +120,17 @@
     }
 
     .cta-btn {
-        display: inline-block;
-        margin-top: $space-md;
+        display: block;
+        width: fit-content;
+        margin: $space-lg auto 0;
         padding: $space-sm $space-xl;
-        background: $clr-teal;
+        background: $clr-purple-mid;
         color: $clr-white;
         border-radius: 6px;
         font-size: 1rem;
+        text-align: center;
         transition: background $transition-fast;
 
-        &:hover { background: $clr-purple-mid; }
+        &:hover { background: $clr-purple-deep; }
     }
 }

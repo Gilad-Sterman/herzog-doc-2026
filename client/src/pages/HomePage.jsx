@@ -46,27 +46,30 @@ export default function HomePage() {
                         : <>The doctoral dissertation of Rabbi Isaac Herzog on the identity and sources of <em>Tekhelet</em> — the ancient blue dye of the Torah.</>}
                 </p>
                 <Link to="/view" className="hero-cta">
-                    {isHeb ? '← קרא את העבודה' : 'Read the Dissertation →'}
+                    {isHeb ? 'קרא את העבודה' : 'Read the Dissertation'}
                 </Link>
             </section>
+            <section className="home-content">
 
-            <div className="home-portrait">
-                <img
-                    src="https://res.cloudinary.com/dqidhqkor/image/upload/v1709645199/HerzogStudyingCrop_tdd3py.jpg"
-                    alt="Rabbi Isaac Herzog studying"
-                />
-            </div>
 
-            <section className="content-section">
-                <h2>{c.aboutTitle}</h2>
-                {c.about.map((para, i) => <p key={i}>{para}</p>)}
+                <div className="home-portrait">
+                    <img
+                        src="https://res.cloudinary.com/dqidhqkor/image/upload/v1709645199/HerzogStudyingCrop_tdd3py.jpg"
+                        alt="Rabbi Isaac Herzog studying"
+                    />
+                </div>
+
+                <section className="content-section">
+                    <h2>{c.aboutTitle}</h2>
+                    {c.about.map((para, i) => <p key={i}>{para}</p>)}
+                </section>
             </section>
 
             <section className="content-section content-section--alt">
                 <h2>{c.dissertationTitle}</h2>
                 {c.dissertation.map((para, i) => <p key={i}>{para}</p>)}
                 <Link to="/view" className="cta-btn">
-                    {isHeb ? '← קרא את העבודה' : 'Read the Dissertation →'}
+                    {isHeb ? 'קרא את העבודה' : 'Read the Dissertation'}
                 </Link>
             </section>
 

@@ -3,13 +3,17 @@
 
 .app-header {
     position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
+    top: $header-top;
+    left: $space-md;
+    right: $space-md;
     height: $header-height;
+    border-radius: 12px;
     z-index: 100;
-    background: $gradient-header;
-    color: $clr-white;
+    background: rgba($clr-bg-alt, 0.7);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    color: $clr-text-dark;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.12);
     @include flex(row, space-between, center);
     padding: 0 $space-xl;
 
@@ -23,6 +27,7 @@
         font-family: $font-bold;
         font-size: 1.1rem;
         letter-spacing: 0.04em;
+        color: $clr-purple-mid;
 
         img {
             height: 40px;
@@ -37,14 +42,15 @@
         gap: $space-lg;
 
         a {
-            color: $clr-white;
+            color: $clr-text-dark;
             font-size: 1rem;
-            opacity: 0.85;
-            transition: opacity $transition-fast;
+            opacity: 0.8;
+            transition: all $transition-fast;
 
             &:hover,
             &.active {
                 opacity: 1;
+                color: $clr-purple-mid;
                 text-decoration: underline;
                 text-underline-offset: 4px;
             }
@@ -56,7 +62,7 @@
         gap: $space-xs;
 
         button {
-            color: $clr-white;
+            color: $clr-text-dark;
             font-size: 0.9rem;
             padding: $space-xs $space-sm;
             border-radius: 4px;
@@ -65,7 +71,8 @@
 
             &.active {
                 opacity: 1;
-                background: rgba($clr-white, 0.2);
+                background: $clr-purple-mid;
+                color: $clr-white;
                 font-family: $font-bold;
             }
         }

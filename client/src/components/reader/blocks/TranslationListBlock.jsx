@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import InlineText from '../InlineText'
 
-export default function TranslationListBlock({ block, onFootnoteClick }) {
+export default function TranslationListBlock({ block, onFootnoteClick, lang }) {
     const [showOriginal, setShowOriginal] = useState(false)
     const trans = Array.isArray(block.txtTrans) ? block.txtTrans : []
     const orig = Array.isArray(block.txtOrg) ? block.txtOrg : []
@@ -22,7 +22,7 @@ export default function TranslationListBlock({ block, onFootnoteClick }) {
                         className="toggle-original"
                         onClick={() => setShowOriginal((v) => !v)}
                     >
-                        {showOriginal ? '▲ Hide original' : '▼ Show original'}
+                        {showOriginal ? (lang === 'heb' ? '▲ הסתר מקור' : '▲ Hide original') : lang === 'heb' ? '▼ הצג מקור' : '▼ Show original'}
                     </button>
                     {showOriginal && (
                         <ol className="original-list-items">

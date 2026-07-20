@@ -53,6 +53,7 @@ export default function SubChapterReader({ subChapter, chapter, prev, next }) {
                         key={i}
                         block={block}
                         onFootnoteClick={handleFootnoteClick}
+                        lang={isHeb ? 'heb' : 'eng'}
                     />
                 ))}
             </div>
@@ -69,14 +70,14 @@ export default function SubChapterReader({ subChapter, chapter, prev, next }) {
                     onClick={() => navigateTo(prev)}
                     disabled={!prev}
                 >
-                    {isHeb ? 'הקודם →' : '← Previous'}
+                    {isHeb ? '→ הקודם' : '← Previous'}
                 </button>
                 <button
                     className="nav-btn nav-btn--next"
                     onClick={() => navigateTo(next)}
                     disabled={!next}
                 >
-                    {isHeb ? '← הבא' : 'Next →'}
+                    {isHeb ? 'הבא ←' : 'Next →'}
                 </button>
             </nav>
 

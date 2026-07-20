@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import InlineText from '../InlineText'
 
-export default function TranslationBlock({ block, onFootnoteClick }) {
+export default function TranslationBlock({ block, onFootnoteClick, lang }) {
     const [showOriginal, setShowOriginal] = useState(false)
 
     return (
@@ -18,7 +18,7 @@ export default function TranslationBlock({ block, onFootnoteClick }) {
                         className="toggle-original"
                         onClick={() => setShowOriginal((v) => !v)}
                     >
-                        {showOriginal ? '▲ Hide original' : '▼ Show original'}
+                        {showOriginal ? (lang === 'heb' ? '▲ הסתר מקור' : '▲ Hide original') : lang === 'heb' ? '▼ הצג מקור' : '▼ Show original'}
                     </button>
                     {showOriginal && (
                         <blockquote className="original-text">

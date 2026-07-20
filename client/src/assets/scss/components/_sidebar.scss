@@ -10,7 +10,7 @@
 
 .sidebar {
     position: fixed;
-    top: $header-height;
+    top: calc(#{$header-height} + #{$header-top} + 10px);
     left: 0;
     bottom: 0;
     width: $sidebar-width;
@@ -90,7 +90,7 @@
 
         .ch-num {
             font-size: 0.7rem;
-            color: rgba($clr-white, 0.5);
+            color: rgba($clr-white, 0.75);
             text-transform: uppercase;
             letter-spacing: 0.06em;
         }
@@ -136,7 +136,7 @@
 
         .sub-num {
             font-size: 0.7rem;
-            color: rgba($clr-white, 0.45);
+            color: rgba($clr-white, 0.65);
             min-width: 32px;
             flex-shrink: 0;
         }

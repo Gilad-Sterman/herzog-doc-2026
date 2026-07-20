@@ -2,14 +2,14 @@
 @use '../base/mixins' as *;
 
 .view-doc-page {
-    padding-top: $header-height;
+    padding-top: calc(#{$header-height} + #{$header-top} + #{$space-sm});
     @include flex(row, flex-start, stretch);
     min-height: 100vh;
 
     .sidebar-toggle {
         position: fixed;
         left: $space-md;
-        top: calc(#{$header-height} + #{$space-md});
+        top: calc(#{$header-height} + #{$header-top} + #{$space-md});
         z-index: 60;
         @include btn-reset;
         background: $clr-purple-deep;
