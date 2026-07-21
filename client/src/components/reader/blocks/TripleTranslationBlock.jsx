@@ -1,14 +1,14 @@
 import { useState } from 'react'
 import InlineText from '../InlineText'
 
-export default function TripleTranslationBlock({ block, onFootnoteClick, lang }) {
+export default function TripleTranslationBlock({ block, onFootnoteClick, onFootnoteHover, lang, highlight }) {
     const [showOriginal, setShowOriginal] = useState(false)
 
     return (
         <div className="block block--triple-translation">
             {block.txtTrans && (
                 <blockquote className="translation-text">
-                    <InlineText text={block.txtTrans} onFootnoteClick={onFootnoteClick} />
+                    <InlineText text={block.txtTrans} onFootnoteClick={onFootnoteClick} onFootnoteHover={onFootnoteHover} highlight={highlight} />
                 </blockquote>
             )}
 
@@ -27,7 +27,7 @@ export default function TripleTranslationBlock({ block, onFootnoteClick, lang })
                             )}
                             {block.txtOrg && (
                                 <blockquote className="original-text">
-                                    <InlineText text={block.txtOrg} onFootnoteClick={onFootnoteClick} />
+                                    <InlineText text={block.txtOrg} onFootnoteClick={onFootnoteClick} onFootnoteHover={onFootnoteHover} highlight={highlight} />
                                 </blockquote>
                             )}
                         </div>

@@ -25,7 +25,17 @@ function parseInline(text) {
     return segments
 }
 
-export default function InlineText({ text, onFootnoteClick }) {
+function renderWithHighlight(content, highlight) {
+    if (!highlight || !content) return content
+    const escaped = highlight.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')
+    const regex = new RegExp(`(${escaped})`, 'gi')
+    const parts = content.split(regex)
+    return parts.map((part, i) =>
+        i % 2 === 1 ? <mark key={i}>{part}</mark> : part
+    )
+}
+
+export default function InlineText({ text, onFootnoteClick, onFootnoteHover, highlight }) {
     if (!text) return null
 
     const paragraphs = text.split(/\n\n+/)
@@ -38,19 +48,21 @@ export default function InlineText({ text, onFootnoteClick }) {
                     <span key={pi} className="inline-para">
                         {pi > 0 && <><br /><br /></>}
                         {segments.map((seg, si) => {
-                            if (seg.type === 'bold') return <strong key={si}>{seg.content}</strong>
-                            if (seg.type === 'italic') return <em key={si}>{seg.content}</em>
+                            if (seg.type === 'bold') return <strong key={si}>{renderWithHighlight(seg.content, highlight)}</strong>
+                            if (seg.type === 'italic') return <em key={si}>{renderWithHighlight(seg.content, highlight)}</em>
                             if (seg.type === 'footnote') return (
                                 <sup
                                     key={si}
                                     className="footnote-ref"
-                                    onClick={(e) => onFootnoteClick?.(seg.num, e)}
-                                    title={`Footnote ${seg.num}`}
+                                    data-fnref={seg.num}
+                                    onMouseEnter={(e) => onFootnoteHover?.(seg.num, e)}
+                                    onMouseLeave={() => onFootnoteHover?.(null)}
+                                    onClick={(e) => { e.stopPropagation(); onFootnoteClick?.(seg.num) }}
                                 >
                                     {seg.num}
                                 </sup>
                             )
-                            return <span key={si}>{seg.content}</span>
+                            return <span key={si}>{renderWithHighlight(seg.content, highlight)}</span>
                         })}
                     </span>
                 )

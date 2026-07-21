@@ -1,5 +1,5 @@
 import { useEffect } from 'react'
-import { useParams, useNavigate } from 'react-router-dom'
+import { useParams, useNavigate, useSearchParams } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 import { fetchChapters } from '../store/slices/chaptersSlice'
 import { toggleSidebar } from '../store/slices/uiSlice'
@@ -13,6 +13,8 @@ export default function ViewDocPage() {
     const dispatch = useDispatch()
     const navigate = useNavigate()
     const { chapterNum, subNum } = useParams()
+    const [searchParams] = useSearchParams()
+    const highlight = searchParams.get('q') || ''
     const { list: chapters, loadedLang, loading, error } = useSelector((s) => s.chapters)
     const { lang, sidebarOpen } = useSelector((s) => s.ui)
 
@@ -86,6 +88,7 @@ export default function ViewDocPage() {
                         chapter={chapter}
                         prev={prev}
                         next={next}
+                        highlight={highlight}
                     />
                 )}
 
@@ -94,6 +97,7 @@ export default function ViewDocPage() {
                         chapter={chapter}
                         prev={prev}
                         next={next}
+                        highlight={highlight}
                     />
                 )}
             </div>

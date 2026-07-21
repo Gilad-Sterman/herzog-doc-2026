@@ -1,21 +1,26 @@
-import { useState, useCallback, useRef, useEffect } from 'react'
+import { useState, useCallback, useRef } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { useSelector } from 'react-redux'
 import BlockRenderer from './BlockRenderer'
 import FootnoteList from './FootnoteList'
 import OrgPdfPanel from './OrgPdfPanel'
 
-export default function SubChapterReader({ subChapter, chapter, prev, next }) {
+export default function SubChapterReader({ subChapter, chapter, prev, next, highlight }) {
     const navigate = useNavigate()
     const lang = useSelector((s) => s.ui.lang)
     const isHeb = lang === 'heb'
     const [activeFootnote, setActiveFootnote] = useState(null)
     const tooltipRef = useRef(null)
+    const leaveTimer = useRef(null)
 
-    const handleFootnoteClick = useCallback((num, e) => {
-        e.stopPropagation()
+    const handleFootnoteHover = useCallback((num, e) => {
+        clearTimeout(leaveTimer.current)
+        if (num === null) {
+            leaveTimer.current = setTimeout(() => setActiveFootnote(null), 200)
+            return
+        }
         const rect = e.target.getBoundingClientRect()
-        setActiveFootnote((cur) => cur?.num === num ? null : {
+        setActiveFootnote({
             num,
             text: subChapter.footNotes?.[num - 1] || '',
             x: rect.left + window.scrollX,
@@ -23,10 +28,9 @@ export default function SubChapterReader({ subChapter, chapter, prev, next }) {
         })
     }, [subChapter])
 
-    useEffect(() => {
-        function handleClick() { setActiveFootnote(null) }
-        document.addEventListener('click', handleClick)
-        return () => document.removeEventListener('click', handleClick)
+    const handleFootnoteClick = useCallback((num) => {
+        const el = document.getElementById(`fn-${num}`)
+        if (el) el.scrollIntoView({ behavior: 'smooth', block: 'center' })
     }, [])
 
     function navigateTo(target) {
@@ -53,7 +57,9 @@ export default function SubChapterReader({ subChapter, chapter, prev, next }) {
                         key={i}
                         block={block}
                         onFootnoteClick={handleFootnoteClick}
+                        onFootnoteHover={handleFootnoteHover}
                         lang={isHeb ? 'heb' : 'eng'}
+                        highlight={highlight}
                     />
                 ))}
             </div>
@@ -61,7 +67,6 @@ export default function SubChapterReader({ subChapter, chapter, prev, next }) {
             <FootnoteList
                 footnotes={subChapter.footNotes}
                 activeNum={activeFootnote?.num}
-                onFootnoteClick={handleFootnoteClick}
             />
 
             <nav className="subchapter-nav">
@@ -86,7 +91,8 @@ export default function SubChapterReader({ subChapter, chapter, prev, next }) {
                     ref={tooltipRef}
                     className="footnote-tooltip"
                     style={{ top: activeFootnote.y, left: Math.min(activeFootnote.x, window.innerWidth - 340) }}
-                    onClick={(e) => e.stopPropagation()}
+                    onMouseEnter={() => clearTimeout(leaveTimer.current)}
+                    onMouseLeave={() => setActiveFootnote(null)}
                 >
                     <span className="tooltip-num">{activeFootnote.num}.</span>
                     <span className="tooltip-text">{activeFootnote.text}</span>

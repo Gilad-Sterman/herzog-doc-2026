@@ -70,7 +70,7 @@ export default function SearchPage() {
                     <div className="empty-state">{t.noResults(searched)}</div>
                 )}
                 {results?.map((r, i) => (
-                    <div key={i} className="result-card" onClick={() => navigate(r.path)}>
+                    <div key={i} className="result-card" onClick={() => navigate(`${r.path}?q=${encodeURIComponent(searched)}`)}>
                         <div className="result-meta">
                             <span className="result-chapter">
                                 {t.chapter} {r.chapterNum}

@@ -18,11 +18,11 @@ const BLOCK_MAP = {
     translationList: TranslationListBlock,
 }
 
-export default function BlockRenderer({ block, onFootnoteClick, lang }) {
+export default function BlockRenderer({ block, onFootnoteClick, onFootnoteHover, lang, highlight }) {
     const Component = BLOCK_MAP[block.type]
     if (!Component) {
         console.warn('Unknown block type:', block.type)
         return null
     }
-    return <Component block={block} onFootnoteClick={onFootnoteClick} lang={lang} />
+    return <Component block={block} onFootnoteClick={onFootnoteClick} onFootnoteHover={onFootnoteHover} lang={lang} highlight={highlight} />
 }

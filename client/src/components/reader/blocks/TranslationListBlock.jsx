@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import InlineText from '../InlineText'
 
-export default function TranslationListBlock({ block, onFootnoteClick, lang }) {
+export default function TranslationListBlock({ block, onFootnoteClick, onFootnoteHover, lang, highlight }) {
     const [showOriginal, setShowOriginal] = useState(false)
     const trans = Array.isArray(block.txtTrans) ? block.txtTrans : []
     const orig = Array.isArray(block.txtOrg) ? block.txtOrg : []
@@ -11,7 +11,7 @@ export default function TranslationListBlock({ block, onFootnoteClick, lang }) {
             <ol className="translation-list-items">
                 {trans.map((item, i) => (
                     <li key={i}>
-                        <InlineText text={item} onFootnoteClick={onFootnoteClick} />
+                        <InlineText text={item} onFootnoteClick={onFootnoteClick} onFootnoteHover={onFootnoteHover} highlight={highlight} />
                     </li>
                 ))}
             </ol>
@@ -28,7 +28,7 @@ export default function TranslationListBlock({ block, onFootnoteClick, lang }) {
                         <ol className="original-list-items">
                             {orig.map((item, i) => (
                                 <li key={i}>
-                                    <InlineText text={item} onFootnoteClick={onFootnoteClick} />
+                                    <InlineText text={item} onFootnoteClick={onFootnoteClick} onFootnoteHover={onFootnoteHover} highlight={highlight} />
                                 </li>
                             ))}
                         </ol>
