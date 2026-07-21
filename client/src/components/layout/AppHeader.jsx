@@ -1,7 +1,7 @@
 import { NavLink } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 import { setLang } from '../../store/slices/uiSlice'
-
+import { BookOpen, Home, Search } from 'lucide-react'
 export default function AppHeader() {
     const dispatch = useDispatch()
     const lang = useSelector((state) => state.ui.lang)
@@ -15,9 +15,18 @@ export default function AppHeader() {
             </div>
 
             <nav>
-                <NavLink to="/">{isHeb ? 'בית' : 'Home'}</NavLink>
-                <NavLink to="/view">{isHeb ? 'קריאה' : 'Read'}</NavLink>
-                <NavLink to="/search">{isHeb ? 'חיפוש' : 'Search'}</NavLink>
+                <NavLink className="desktop-link" to="/">{isHeb ? 'בית' : 'Home'}</NavLink>
+                <NavLink className="mobile-link" to="/">
+                    <Home size={18} />
+                </NavLink>
+                <NavLink className="desktop-link" to="/view">{isHeb ? 'קריאה' : 'Read'}</NavLink>
+                <NavLink className="mobile-link" to="/view">
+                    <BookOpen size={18} />
+                </NavLink>
+                <NavLink className="desktop-link" to="/search">{isHeb ? 'חיפוש' : 'Search'}</NavLink>
+                <NavLink className="mobile-link" to="/search">
+                    <Search size={18} />
+                </NavLink>
             </nav>
 
             <div className="lang-toggle">

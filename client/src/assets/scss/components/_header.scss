@@ -17,9 +17,6 @@
     @include flex(row, space-between, center);
     padding: 0 $space-xl;
 
-    @include mobile {
-        padding: 0 $space-md;
-    }
 
     .header-logo {
         @include flex(row, flex-start, center);
@@ -55,6 +52,17 @@
                 text-underline-offset: 4px;
             }
         }
+
+        .mobile-link {
+            display: none;
+            height: 18px;
+
+            @include mobile {
+                display: block;
+            }
+        }
+
+
     }
 
     .lang-toggle {
@@ -75,6 +83,27 @@
                 color: $clr-white;
                 font-family: $font-bold;
             }
+        }
+    }
+
+    @include mobile {
+        padding: 0 $space-md;
+
+        .header-logo {
+            font-size: 0.9rem;
+            max-width: 90px;
+        }
+
+        nav {
+            gap: $space-md;
+
+            .desktop-link {
+                display: none;
+            }
+        }
+
+        .lang-toggle {
+            gap: $space-xs;
         }
     }
 }
