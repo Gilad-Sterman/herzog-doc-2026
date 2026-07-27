@@ -11,40 +11,52 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+
+      - name: Setup Node 20
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+          cache-dependency-path: client/package-lock.json
+
+      - name: Install client deps
+        run: npm ci
+        working-directory: client
+
+      - name: Build frontend
+        run: npm run build
+        working-directory: client
+
       - name: Setup SSH key
         env:
           SSH_KEY: ${{ secrets.EC2_SSH_KEY }}
         run: |
           mkdir -p ~/.ssh
-          printf '%s' "$SSH_KEY" > ~/.ssh/deploy_key
+          printf '%s\n' "$SSH_KEY" > ~/.ssh/deploy_key
           chmod 600 ~/.ssh/deploy_key
 
-      - name: Deploy to EC2
+      - name: Sync server code + built frontend to EC2
         env:
           EC2_HOST: ${{ secrets.EC2_HOST }}
         run: |
-          ssh -i ~/.ssh/deploy_key -o StrictHostKeyChecking=no ec2-user@${EC2_HOST} bash << 'ENDSSH'
+          rsync -az \
+            --exclude='node_modules' \
+            --exclude='.env' \
+            -e "ssh -i ~/.ssh/deploy_key -o StrictHostKeyChecking=no" \
+            server/ \
+            ec2-user@${EC2_HOST}:/home/ec2-user/herzog-doc-2026/server/
+
+      - name: Install server deps, sync collections & restart PM2
+        env:
+          EC2_HOST: ${{ secrets.EC2_HOST }}
+        run: |
+          ssh -i ~/.ssh/deploy_key -T -o StrictHostKeyChecking=no ec2-user@${EC2_HOST} << 'ENDSSH'
             set -e
-            cd /home/ec2-user/herzog-doc-2026
-
-            echo "── Pulling latest from main ──"
-            git fetch origin
-            git reset --hard origin/main
-
-            echo "── Installing client dependencies ──"
-            cd client && npm ci
-
-            echo "── Building frontend → server/public/ ──"
-            npm run build
-
-            echo "── Installing server dependencies ──"
-            cd ../server && npm ci
-
-            echo "── Syncing src collections → display collections ──"
+            cd /home/ec2-user/herzog-doc-2026/server
+            npm ci --omit=dev
             node prodScripts/syncSrc.js
-
-            echo "── Restarting PM2 process ──"
             pm2 restart herzog-doc-2026
-
             echo "── Deploy complete ──"
           ENDSSH
