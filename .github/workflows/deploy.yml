@@ -11,15 +11,19 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Deploy to EC2 via SSH
-        uses: appleboy/ssh-action@v1.0.3
-        with:
-          host: ${{ secrets.EC2_HOST }}
-          username: ec2-user
-          key: ${{ secrets.EC2_SSH_KEY }}
-          script: |
-            set -e
+      - name: Setup SSH key
+        run: |
+          mkdir -p ~/.ssh
+          echo "${{ secrets.EC2_SSH_KEY }}" > ~/.ssh/deploy_key
+          chmod 600 ~/.ssh/deploy_key
+          ssh-keyscan -H ${{ secrets.EC2_HOST }} >> ~/.ssh/known_hosts
 
+      - name: Deploy to EC2
+        env:
+          EC2_HOST: ${{ secrets.EC2_HOST }}
+        run: |
+          ssh -i ~/.ssh/deploy_key ec2-user@${EC2_HOST} bash << 'ENDSSH'
+            set -e
             cd /home/ec2-user/herzog-doc-2026
 
             echo "── Pulling latest from main ──"
@@ -27,15 +31,13 @@ jobs:
             git reset --hard origin/main
 
             echo "── Installing client dependencies ──"
-            cd client
-            npm ci
+            cd client && npm ci
 
             echo "── Building frontend → server/public/ ──"
             npm run build
 
             echo "── Installing server dependencies ──"
-            cd ../server
-            npm ci
+            cd ../server && npm ci
 
             echo "── Syncing src collections → display collections ──"
             node prodScripts/syncSrc.js
@@ -44,3 +46,4 @@ jobs:
             pm2 restart herzog-doc-2026
 
             echo "── Deploy complete ──"
+          ENDSSH
